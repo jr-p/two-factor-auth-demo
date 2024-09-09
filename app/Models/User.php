@@ -48,4 +48,14 @@ class User extends Authenticatable
             'two_factor_auth_code_expires_at' => 'datetime',
         ];
     }
+
+    /**
+     * Route notifications for the Vonage channel.
+     * 
+     * @return string
+     */
+    public function routeNotificationForVonage(): string
+    {
+        return $this->tel;
+    }
 }

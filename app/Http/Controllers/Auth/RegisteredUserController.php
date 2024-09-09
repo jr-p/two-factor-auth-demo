@@ -37,20 +37,20 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'tel' => 'required|string|max:255',
         ]);
-
+        // 国際電話番号に変換(日本国内のみ)
+        $tel = preg_replace('/^0/', '+81', $request->tel);
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'tel' => $request->tel
+            'tel' => $tel
         ]);
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        TwoFactorAuthenticate::sendMail($user);
-
+        TwoFactorAuthenticate::sendSms($user);
         return redirect(route('dashboard', absolute: false));
     }
 }

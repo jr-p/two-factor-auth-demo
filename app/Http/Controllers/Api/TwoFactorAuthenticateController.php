@@ -20,7 +20,7 @@ class TwoFactorAuthenticateController extends Controller
 
         $id = $validated['id'];
         $user = User::find($id);
-        TwoFactorAuthenticate::sendMail($user);
+        TwoFactorAuthenticate::sendSms($user);
         return response()->json(['message' => 'メールを送信しました。']);
     }
 }

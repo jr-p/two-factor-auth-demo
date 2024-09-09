@@ -34,8 +34,7 @@ class AuthenticatedSessionController extends Controller
 
         $user = Auth::user();
 
-        TwoFactorAuthenticate::sendMail($user);
-
+        TwoFactorAuthenticate::sendSms($user);
         return redirect()->intended(route('dashboard', absolute: false));
     }
 
